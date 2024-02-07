@@ -86,6 +86,8 @@ function GetGroupIdBaseOnGatepass() {
 
     $('#divVCTDetail').html('');
     $('#divVCTDetail').empty();
+  
+    
     var connectionStatus = navigator.onLine ? 'online' : 'offline'
     var errmsg = "";
 
@@ -143,6 +145,7 @@ function GetGroupIdBaseOnGatepass() {
                     //$('#divVCTDetail').html('');
                     //$('#divVCTDetail').empty();
                     console.log(xmlDoc);
+                    $('#divVCTDetail').empty('');
                     $(xmlDoc).find('Table1').each(function () {
                         var OutMsg = $(this).find('strOutMsg').text();
 
@@ -207,7 +210,7 @@ function GetGroupIdBaseOnGatepass() {
                             $('#divVCTDetail').show();
                             $('#divVCTDetail').append(html);
                         }
-
+                     
 
                     } else {
                         errmsg = 'VCT No. does not exists.';
@@ -245,7 +248,7 @@ function VCTNoDetails(GroupID, NoOfPackages, IsOutOfWarehouse) {
         html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button  class="btn" disabled align="center">Cancel</button></td>';
     } else {
         //html += '<td onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" style="background: rgb(224, 243, 215);padding-left: 4px;font-size:14px;text-align:center;color:red;"><span class="glyphicon glyphicon-remove"></span></td>';
-        html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" class="btn ButtonColor" align="center">Cancel</button></td>';
+        html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button disabled onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" class="btn" align="center">Cancel</button></td>';
     }
 
     html += '</tr>';
@@ -261,18 +264,18 @@ function SaveOutforWarehouse() {
     var txtGroupId = $('#txtGroupId').val();
 
 
-    if (txtGatePass == "") {
-        $('#lblMessage').text('Please scan/enter gate pass.').css('color', 'red');
-        return;
-    } else {
-        $('#lblMessage').text('');
-    }
+    //if (txtGatePass == "") {
+    //    $('#lblMessage').text('Please scan/enter gate pass.').css('color', 'red');
+    //    return;
+    //} else {
+    //    $('#lblMessage').text('');
+    //}
 
-    if (txtGroupId == '') {
-        $('#lblMessageSuccess').text('');
-        GetGroupIdBaseOnGatepass();
-        return;
-    }
+    //if (txtGroupId == '') {
+    //    $('#lblMessageSuccess').text('');
+    //    GetGroupIdBaseOnGatepass();
+    //    return;
+    //}
 
     if (errmsg == "" && connectionStatus == "online") {
         $.ajax({
@@ -308,8 +311,8 @@ function SaveOutforWarehouse() {
                     var StrMessage = $(this).find('OutMsg').text();
 
                     if (Status == 'E') {
-                        $('#txtGroupId').val('');
-                        $('#txtGroupId').focus();
+                        //$('#txtGroupId').val('');
+                        //$('#txtGroupId').focus();
                         //$.alert(StrMessage).css('color', 'red');
                         $('#lblMessageSuccess').text(StrMessage).css('color', 'red');
 
