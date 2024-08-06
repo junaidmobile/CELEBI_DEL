@@ -3,6 +3,9 @@
 //var GHAserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
 //var GHAImportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
 //var GHAExportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTExpServices.asmx/';
+//var CMSserviceURL = 'https://uatwww.cargocel.in/CELEBIHHTWebservices/CMS_WS_PDA.asmx/';
+
+
 //var CMSserviceURL = 'https://uatwww.cargocel.in/CELEBIwebservice_hht/CMS_WS_PDA.asmx/';
 
 

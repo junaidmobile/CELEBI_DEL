@@ -84,8 +84,8 @@ function gatePassChangeFocus() {
 
 function GetGroupIdBaseOnGatepass() {
 
-    $('#divVCTDetail').html('');
-    $('#divVCTDetail').empty();
+  
+
     var connectionStatus = navigator.onLine ? 'online' : 'offline'
     var errmsg = "";
 
@@ -97,7 +97,9 @@ function GetGroupIdBaseOnGatepass() {
     } else {
         // $('#txtGroupId').focus();
     }
-
+    $('#divVCTDetail').html('');
+    $('#divVCTDetail').empty();
+    $('#lblMessageSuccess').text('');
     //if (txtGatePass.length == '14') {
     //    //errmsg = "Please enter valid AWB No.";
     //    //$.alert(errmsg);
@@ -143,16 +145,23 @@ function GetGroupIdBaseOnGatepass() {
                     //$('#divVCTDetail').html('');
                     //$('#divVCTDetail').empty();
                     console.log(xmlDoc);
+                    $('#divVCTDetail').empty('');
                     $(xmlDoc).find('Table1').each(function () {
                         var OutMsg = $(this).find('strOutMsg').text();
-
-                        if (OutMsg != '') {
-                            $('#lblMessageSuccess').text('');
-                            $('#lblMessage').text(OutMsg).css('color', 'red');
+                        var Status = $(this).find('Status').text();
+                        if (Status == 'E') {
+                            //$('#lblMessageSuccess').text('');
+                            $('#lblMessageSuccess').text(OutMsg).css('color', 'red');
+                            //$('#txtGatePass').val('');
+                            //$('#txtGatePass').focus();
                             $('#txtGatePass').val('');
+                            $('#txtPieces').val('');
+                            $('#txtWeight').val('');
+                            $('#txtLocation').val('');
+                            $('#txEmployeeID').val('');
+                            $('#txRemark').val('');
                             $('#txtGatePass').focus();
                         } else {
-
 
                             $('#lblMessage').text('');
                         }
@@ -167,20 +176,22 @@ function GetGroupIdBaseOnGatepass() {
 
                     if (response != null && response != "") {
 
-                        html = '';
+                        //html = '';
 
-                        html += '<table id="tblNewsForGatePass" border="1" style="width:100%;table-layout:fixed;word-break:break-word;border-color: white;margin-top: 2%;">';
-                        html += '<thead>';
-                        html += '<tr>';
-                        html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Group Id</th>';
-                        html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Pieces</th>';
-                        html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Cancel</th>';
-                        html += '</tr>';
-                        html += '</thead>';
-                        html += '<tbody>';
+                        //html += '<table id="tblNewsForGatePass" border="1" style="width:100%;table-layout:fixed;word-break:break-word;border-color: white;margin-top: 2%;">';
+                        //html += '<thead>';
+                        //html += '<tr>';
+                        //html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Group Id</th>';
+                        //html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Pieces</th>';
+                        //html += '<th height="30" style="background-color:rgb(208, 225, 244);padding: 3px 3px 3px 0px;font-size:14px" align="center">Cancel</th>';
+                        //html += '</tr>';
+                        //html += '</thead>';
+                        //html += '<tbody>';
 
                         var xmlDoc = $.parseXML(response);
                         var flag = '0';
+                        var IsHandOver;
+                        var IsLinedup;
                         $(xmlDoc).find('Table').each(function (index) {
                             $('#lblMessage').text('');
                             //var Status = $(this).find('Status').text();
@@ -195,18 +206,119 @@ function GetGroupIdBaseOnGatepass() {
 
                             flag = '1';
 
-                            GroupID = $(this).find('GroupID').text();
-                            NoOfPackages = $(this).find('NoOfPackages').text();
-                            IsOutOfWarehouse = $(this).find('IsOutOfWarehouse').text();
-                            HAWBRowId = $(this).find('HAWBRowId').text();
-                            $('#btnGatePassHandover').removeAttr('disabled');
-                            VCTNoDetails(GroupID, NoOfPackages, IsOutOfWarehouse);
+                            if (index == 0) {
+                                GroupID = $(this).find('GroupID').text();
+                                NoOfPackages = $(this).find('NoOfPackages').text();
+                                GROSSWT = $(this).find('GROSSWT').text();
+                                LOCATION = $(this).find('LOCATION').text();
+                                IsOutOfWarehouse = $(this).find('IsOutOfWarehouse').text();
+                                HAWBRowId = $(this).find('HAWBRowId').text();
+                                $('#btnGatePassHandover').removeAttr('disabled');
+                                //  VCTNoDetails(GroupID, NoOfPackages, IsOutOfWarehouse);
+                                IsHandOver = $(this).find('IsHandOver').text();
+                                IsLinedup = $(this).find('IsLinedup').text();
+                                EmpID = $(this).find('EmpID').text();
+                                Remark = $(this).find('Remark').text();
+                                $('#txtPieces').val(NoOfPackages);
+                                $('#txtWeight').val(GROSSWT);
+                                $('#txtLocation').val(LOCATION);
+                                $('#txEmployeeID').val(EmpID);
+                               
+                                $('#txEmployeeID').focus();
+                            }
+
+
                         });
-                        html += "</tbody></table>";
-                        if (flag == '1') {
-                            $('#divVCTDetail').show();
-                            $('#divVCTDetail').append(html);
+
+
+                        $(xmlDoc).find('Table2').each(function () {
+
+                            var Status = $(this).find('Status').text();
+                            var StrMessage = $(this).find('OutMsg').text();
+
+                            if (Status == 'E') {
+                                //$('#txtGroupId').val('');
+                                //$('#txtGroupId').focus();
+                                //$.alert(StrMessage).css('color', 'red');
+                                $('#lblMessageSuccess').text(StrMessage).css('color', 'red');
+
+
+                            } else {
+                                $('#lblMessageSuccess').text(StrMessage).css('color', 'green');
+
+                            }
+
+                        });
+                        if (IsHandOver == 'false' && IsLinedup == 'false') {
+
+                            $("#btnGatePassHandover").removeAttr('disabled');
+                            $("#txEmployeeID").removeAttr('disabled');
+
+                            $("#btnSubmit").attr('disabled', 'disabled');
+                            $("#txRemark").attr('disabled', 'disabled');
+
+                            $("#txRemark").val('');
                         }
+
+                        if (IsHandOver == 'true' && IsLinedup == 'false') {
+
+                            $("#btnGatePassHandover").attr('disabled', 'disabled');
+                            $("#txEmployeeID").attr('disabled', 'disabled');
+
+                            $("#btnSubmit").removeAttr('disabled', 'disabled');
+                            $("#txRemark").removeAttr('disabled', 'disabled');
+
+                            $("#txRemark").val('');
+                        }
+
+
+                        if (IsLinedup == 'true') {
+
+                            $("#btnGatePassHandover").attr('disabled', 'disabled');
+                            $("#txEmployeeID").attr('disabled', 'disabled');
+
+                            $("#btnSubmit").attr('disabled', 'disabled');
+                            $("#txRemark").attr('disabled', 'disabled');
+
+                            $('#txRemark').val(Remark);
+                        }
+                        //if (IsHandOver == 'true') {
+                        //    //$.alert($(this).find('OutMsg').text());
+                        //    $("#btnGatePassHandover").attr('disabled', 'disabled');
+                        //    $("#txEmployeeID").attr('disabled', 'disabled');
+                        //    $("#btnSubmit").attr('disabled', 'disabled');
+                        //    $("#txRemark").attr('disabled', 'disabled');
+
+                        //} else {
+                        //    //  $.alert($(this).find('OutMsg').text());
+                        //    $("#btnGatePassHandover").removeAttr('disabled');
+                        //    $("#txEmployeeID").removeAttr('disabled');
+                        //    $("#btnSubmit").removeAttr('disabled');
+                        //    $("#txRemark").removeAttr('disabled');
+                        //}
+
+
+                        //if (IsLinedup == 'true') {
+                        //    //$.alert($(this).find('OutMsg').text());
+                        //    $("#btnSubmit").attr('disabled', 'disabled');
+                        //    $("#txRemark").attr('disabled', 'disabled');
+                        //    $("#btnGatePassHandover").attr('disabled', 'disabled');
+                        //    $("#txEmployeeID").attr('disabled', 'disabled');
+
+                        //} else {
+                        //    //  $.alert($(this).find('OutMsg').text());
+                        //    $("#btnSubmit").removeAttr('disabled');
+                        //    $("#txRemark").removeAttr('disabled');
+                        //    $("#txRemark").val('');
+
+                        //    $("#btnGatePassHandover").removeAttr('disabled');
+                        //    $("#txEmployeeID").removeAttr('disabled');
+                        //}
+                        //html += "</tbody></table>";
+                        //if (flag == '1') {
+                        //    $('#divVCTDetail').show();
+                        //    $('#divVCTDetail').append(html);
+                        //}
 
 
                     } else {
@@ -245,7 +357,7 @@ function VCTNoDetails(GroupID, NoOfPackages, IsOutOfWarehouse) {
         html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button  class="btn" disabled align="center">Cancel</button></td>';
     } else {
         //html += '<td onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" style="background: rgb(224, 243, 215);padding-left: 4px;font-size:14px;text-align:center;color:red;"><span class="glyphicon glyphicon-remove"></span></td>';
-        html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" class="btn ButtonColor" align="center">Cancel</button></td>';
+        html += '<td style="font-size:14px;padding: 5px;background: rgb(224, 243, 215);" class="text-center align-middle"><button disabled onclick="SaveOutforWarehouseRevoke(\'' + GroupID + '\');" class="btn" align="center">Cancel</button></td>';
     }
 
     html += '</tr>';
@@ -258,7 +370,8 @@ function SaveOutforWarehouse() {
     var errmsg = "";
 
     var txtGatePass = $('#txtGatePass').val();
-    var txtGroupId = $('#txtGroupId').val();
+    var txtGroupId = '';// $('#txtGroupId').val();
+    var txEmployeeID = $('#txEmployeeID').val();
 
 
     if (txtGatePass == "") {
@@ -268,11 +381,19 @@ function SaveOutforWarehouse() {
         $('#lblMessage').text('');
     }
 
-    if (txtGroupId == '') {
-        $('#lblMessageSuccess').text('');
-        GetGroupIdBaseOnGatepass();
+    if (txEmployeeID == "") {
+        $('#lblMessage').text('Please enter employee Id.').css('color', 'red');
+        $('#txEmployeeID').focus();
         return;
+    } else {
+        $('#lblMessage').text('');
     }
+
+    //if (txtGroupId == '') {
+    //    $('#lblMessageSuccess').text('');
+    //    GetGroupIdBaseOnGatepass();
+    //    return;
+    //}
 
     if (errmsg == "" && connectionStatus == "online") {
         $.ajax({
@@ -282,7 +403,9 @@ function SaveOutforWarehouse() {
                 'pi_strGatepassNo': txtGatePass,
                 'pi_strGroupId': txtGroupId,
                 'pi_strUserId': UserName,
-                'pi_strMode': 'O'
+                'pi_strMode': 'O',
+                'pi_strEmpId': txEmployeeID,
+                'pi_strRemarks': $('#txRemark').val(),
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -308,13 +431,27 @@ function SaveOutforWarehouse() {
                     var StrMessage = $(this).find('OutMsg').text();
 
                     if (Status == 'E') {
-                        $('#txtGroupId').val('');
-                        $('#txtGroupId').focus();
+                        //$('#txtGroupId').val('');
+                        //$('#txtGroupId').focus();
                         //$.alert(StrMessage).css('color', 'red');
                         $('#lblMessageSuccess').text(StrMessage).css('color', 'red');
+                        $('#txtGatePass').val('');
+                        $('#txtPieces').val('');
+                        $('#txtWeight').val('');
+                        $('#txtLocation').val('');
+                        $('#txEmployeeID').val('');
+                        $('#txRemark').val('');
+                        $('#txtGatePass').focus();
 
                     } else {
                         $('#lblMessageSuccess').text(StrMessage).css('color', 'green');
+                        $('#txtGatePass').val('');
+                        $('#txtPieces').val('');
+                        $('#txtWeight').val('');
+                        $('#txtLocation').val('');
+                        $('#txEmployeeID').val('');
+                        $('#txRemark').val('');
+                        $('#txtGatePass').focus();
                     }
 
                 });
@@ -323,7 +460,7 @@ function SaveOutforWarehouse() {
 
                 //     FlightSeqNo = $(this).find('FltSeqNo').text();
                 // });
-                GetGroupIdBaseOnGatepass();
+                // GetGroupIdBaseOnGatepass();
 
 
             },
@@ -443,6 +580,12 @@ function clearAWBDetails() {
     $('#lblMessage').text('');
     $('#txtGatePass').focus();
     $('#btnGatePassHandover').attr('disabled', 'disabled');
+
+    $('#txtPieces').val('');
+    $('#txtWeight').val('');
+    $('#txtLocation').val('');
+    $('#txEmployeeID').val('');
+    $('#txRemark').val('');
 }
 
 
@@ -452,6 +595,21 @@ function ClearError(ID) {
 
 
 function HandoverGatepass_HHT() {
+    if ($("#txtGatePass").val() == "") {
+        $('#lblMessage').text('Please enter/scan gate pass.').css('color', 'red');
+        return;
+    } else {
+        $('#lblMessage').text('');
+    }
+
+    if ($("#txEmployeeID").val() == "") {
+        $('#lblMessage').text('Please enter employee Id.').css('color', 'red');
+        return;
+    } else {
+        $('#lblMessage').text('');
+    }
+
+
 
     var connectionStatus = navigator.onLine ? 'online' : 'offline'
     var errmsg = "";
@@ -460,7 +618,14 @@ function HandoverGatepass_HHT() {
         $.ajax({
             type: 'POST',
             url: CMSserviceURL + "HandoverGatepass_HHT",
-            data: JSON.stringify({ 'pi_intHAWBRowId': HAWBRowId, 'pi_strGatePassNo': $("#txtGatePass").val(), 'pi_strCreatedBy': window.localStorage.getItem("UserName") }),
+            data: JSON.stringify({
+                'pi_intHAWBRowId': HAWBRowId,
+                'pi_strGatePassNo': $("#txtGatePass").val(),
+                'pi_strCreatedBy': window.localStorage.getItem("UserName"),
+                'pi_strEmpID': $("#txEmployeeID").val(),
+                'pi_Remarks': $("#txRemark").val(),
+                'pi_strMode': 'H'
+            }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function doStuff() {
@@ -476,20 +641,144 @@ function HandoverGatepass_HHT() {
 
                     var xmlDoc = $.parseXML(str);
 
-                    $(xmlDoc).find('Table').each(function (index) {
-                        Status = $(this).find('Status').text();
-                        if (Status == 'S') {
-                            $.alert($(this).find('OutMsg').text());
-                            $("#btnGatePassHandover").attr('disabled', 'disabled');
-                            return false;
+                    $(xmlDoc).find('Table').each(function () {
+                        $('#lblMessage').text('');
+                        var Status = $(this).find('Status').text();
+                        var StrMessage = $(this).find('OutMsg').text();
+
+                        if (Status == 'E') {
+                            //$('#txtGroupId').val('');
+                            //$('#txtGroupId').focus();
+                            //$.alert(StrMessage).css('color', 'red');
+                            $('#lblMessageSuccess').text(StrMessage).css('color', 'red');
+                            $('#txtGatePass').val('');
+                            $('#txtPieces').val('');
+                            $('#txtWeight').val('');
+                            $('#txtLocation').val('');
+                            $('#txEmployeeID').val('');
+                            $('#txRemark').val('');
+                            $('#txtGatePass').focus();
+
                         } else {
-                            $.alert($(this).find('OutMsg').text());
-                            $("#btnGatePassHandover").removeAttr('disabled');
+                            $('#lblMessageSuccess').text(StrMessage).css('color', 'green');
+                            $('#txtGatePass').val('');
+                            $('#txtPieces').val('');
+                            $('#txtWeight').val('');
+                            $('#txtLocation').val('');
+                            $('#txEmployeeID').val('');
+                            $('#txRemark').val('');
+                            $('#txtGatePass').focus();
                         }
 
+                    });
 
+                    //$(xmlDoc).find('Table').each(function (index) {
+                    //    Status = $(this).find('Status').text();
+                    //    if (Status == 'S') {
+                    //        $.alert($(this).find('OutMsg').text());
+                    //        $("#btnGatePassHandover").attr('disabled', 'disabled');
+                    //        return false;
+                    //    } else {
+                    //        $.alert($(this).find('OutMsg').text());
+                    //        $("#btnGatePassHandover").removeAttr('disabled');
+                    //    }
+
+
+
+                    //});
+
+                }
+                else {
+                    errmsg = 'Data not found.';
+                    $.alert(errmsg);
+                }
+
+            },
+            error: function (msg) {
+                $("body").mLoading('hide');
+                var r = jQuery.parseJSON(msg.responseText);
+                $.alert(r.Message);
+            }
+        });
+    }
+
+}
+
+
+function HandoverGatepass_HHT_OnSubmitRemark() {
+
+    if ($("#txtGatePass").val() == "") {
+        $('#lblMessage').text('Please enter/scan gate pass.').css('color', 'red');
+        return;
+    } else {
+        $('#lblMessage').text('');
+    }
+
+    if ($("#txRemark").val() == "") {
+        $('#lblMessage').text('Please enter remark.').css('color', 'red');
+        $("#txRemark").focus()
+        return;
+    } else {
+        $('#lblMessage').text('');
+    }
+
+    var connectionStatus = navigator.onLine ? 'online' : 'offline'
+    var errmsg = "";
+
+    if (errmsg == "" && connectionStatus == "online") {
+        $.ajax({
+            type: 'POST',
+            url: CMSserviceURL + "HandoverGatepass_HHT",
+            data: JSON.stringify({
+                'pi_intHAWBRowId': HAWBRowId,
+                'pi_strGatePassNo': $("#txtGatePass").val(),
+                'pi_strCreatedBy': window.localStorage.getItem("UserName"),
+                'pi_strEmpID': $("#txEmployeeID").val(),
+                'pi_Remarks': $("#txRemark").val(),
+                'pi_strMode': 'R'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function doStuff() {
+                //$('.dialog-background').css('display', 'block');
+                $('body').mLoading({
+                    text: "Loading..",
+                });
+            },
+            success: function (response) {
+                $("body").mLoading('hide');
+                var str = response.d;
+                if (str != null && str != "") {
+
+                    var xmlDoc = $.parseXML(str);
+
+                    $(xmlDoc).find('Table').each(function () {
+                        $('#lblMessage').text('');
+                        var Status = $(this).find('Status').text();
+                        var StrMessage = $(this).find('OutMsg').text();
+
+                        if (Status == 'E') {
+                            $('#lblMessageSuccess').text(StrMessage).css('color', 'red');
+                            $('#txRemark').val('');
+                        } else {
+                            $('#lblMessageSuccess').text(StrMessage).css('color', 'green');
+                            $('#txRemark').val('');
+                        }
 
                     });
+
+                    //$(xmlDoc).find('Table').each(function (index) {
+                    //    Status = $(this).find('Status').text();
+                    //    if (Status == 'S') {
+                    //        $.alert($(this).find('OutMsg').text());
+                    //        $("#btnGatePassHandover").attr('disabled', 'disabled');
+                    //        return false;
+                    //    } else {
+                    //        $.alert($(this).find('OutMsg').text());
+                    //        $("#btnGatePassHandover").removeAttr('disabled');
+                    //    }
+
+                    //});
 
                 }
                 else {

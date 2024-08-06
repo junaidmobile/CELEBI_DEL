@@ -1,22 +1,49 @@
 ﻿//document.addEventListener("deviceready", GetCommodityList, false);
 
 var CMSserviceURL = window.localStorage.getItem("CMSserviceURL");
-
+var _AWBNO;
+var _ScanID;
 $(function () {
 
     if (window.localStorage.getItem("RoleExpExportsQuery") == '0') {
         window.location.href = 'EXP_Dashboard.html';
     }
 
+    $('#chkScanID').click(function () {
+        var checked = $(this).attr('checked', true);
+        if (checked) {
+            $('#lblScanID').show();
+            $('#lblAWBNo').hide();
+            $('#lblAWBNo').focus();
+            _ScanID = 'S';
+            clearBeforePopulate();
+
+        }
+
+    });
+
+
+    $('#chkAWBNo').click(function () {
+        var checked = $(this).attr('checked', true);
+        if (checked) {
+            $('#lblScanID').hide();
+            $('#lblAWBNo').show();
+            $('#lblAWBNo').focus();
+            _AWBNO = 'A';
+            clearBeforePopulate();
+        }
+
+    });
+
 });
 
 function GetShipmentStatus() {
-    
+
     var connectionStatus = navigator.onLine ? 'online' : 'offline'
     var errmsg = "";
 
     var AWBNo = $('#txtAWBNo').val();
-    
+
     if (AWBNo == '') {
         errmsg = "Please enter AWB No.";
         $.alert(errmsg);
@@ -27,13 +54,21 @@ function GetShipmentStatus() {
         errmsg = "Please enter valid AWB No.";
         $.alert(errmsg);
         return;
-    }    
+    }
+
+    if ($('#chkAWBNo').prop('checked')) {
+        strType = "A";
+    }
+
+    if ($('#chkScanID').prop('checked')) {
+        strType = "S";
+    }
 
     if (errmsg == "" && connectionStatus == "online") {
         $.ajax({
             type: 'POST',
             url: CMSserviceURL + "GetAWBHistory_PDA",
-            data: JSON.stringify({ 'pi_strAWBNo': AWBNo }),
+            data: JSON.stringify({ 'pi_strAWBNo': AWBNo, 'strType': strType }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function doStuff() {
@@ -78,14 +113,14 @@ function GetShipmentStatus() {
                         eventName = $(this).find('EventName').text();
                         dateTime = $(this).find('EventDateTime').text();
                         userName = $(this).find('Username').text();
-                        
+
                         AddTableLocation(eventName, dateTime, userName);
                     });
 
                     html += "</tbody></table>";
 
                     $('#divAddLocation').append(html);
-                    
+
                 }
                 else {
                     errmsg = 'Shipment does not exists';

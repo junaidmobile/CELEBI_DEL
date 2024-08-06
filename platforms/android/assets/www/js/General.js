@@ -162,6 +162,9 @@ function LoadNavBar() {
     else if (window.location.pathname.split("/").pop() == "EXP_SecurityScreening.html") {
         $('#navhdrName').html("Security Screening");
     }
+    else if (window.location.pathname.split("/").pop() == "IMP_GatePassLineup.html") {
+        $('#navhdrName').html("Gate Pass Line-Up");
+    }
 }
 function NumberOnly(e) {
     e.target.value = e.target.value.replace(/[^0-9]/g, '');

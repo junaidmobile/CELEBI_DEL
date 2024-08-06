@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
 
             </div>
-        </div>         
+        </div>
     </nav>
     <div class="container-fluid" style="margin-top:63px;">
         <div class="panel-body">
@@ -47,9 +47,27 @@
                     <div class="form-body">
                         <form>
                             <div class="row form-group">
-                                <div class="form-group col-xs-12 col-sm-6 col-md-6 NoPadding">
+
+                                <div class="form-group col-xs-12 col-sm-6 col-md-6 NoPadding" id="drRadiobtn" style="border: solid thin lightgray;padding: 5px;">
+                                    <div class="col-xs-6 col-form-label">
+                                        <!--<input type="radio" name="VctNo" id="chkHWABNo" value="HAWB" checked="checked" />
+                                        <label id="lblHAWBNo" for="chkHWABNo">Consol</label>-->
+                                        <label class="radio-inline" style="line-height: 1.7;">
+                                            <input type="radio" id="chkAWBNo" checked="" name="VctNo" autocomplete="off">AWB No.
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-6 col-form-label">
+                                        <!--<input type="radio" name="VctNo" id="chkMPSNo" value="MPS" />
+                                        <label id="lblMPSNo" for="chkMPSNo">MPS No.</label>-->
+                                        <label class="radio-inline" style="line-height: 1.7;">
+                                            <input type="radio" id="chkScanID" name="VctNo" autocomplete="off">Scan ID
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-md-6 NoPadding" style="margin-top:10px;">
                                     <div class="col-xs-6 col-form-label">
                                         <label id="lblAWBNo" for="txtAWBNo">AWB No</label>
+                                        <label id="lblScanID" for="txtAWBNo" style="display:none;">Scan ID</label>
                                         <font color="red">*</font>
                                     </div>
                                     <div class="col-xs-6 NoPadding">
@@ -66,13 +84,13 @@
                                         </select>
                                     </div>
                                 </div>-->
-                            </div>                           
-                           
+                            </div>
+
                             <div class="row form-group" style="margin-top:10px;">
                                 <div class="form-group col-xs-6 col-sm-4 col-md-4">
                                     <input type="button" id="btnExit" class="form-control ButtonColor" value="Exit" onclick="window.location.href = 'EXP_Dashboard.html'">
                                 </div>
-                                <div class="form-group col-xs-6 col-sm-4 col-md-4">                                    
+                                <div class="form-group col-xs-6 col-sm-4 col-md-4">
                                     <input type="button" id="btnGetDetail" class="form-control ButtonColor" value="Get Details" onclick="GetShipmentStatus()">
                                 </div>
                             </div>
@@ -80,13 +98,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="divAddLocation">
 
             </div>
             <div id="temp">
                 <br />
-            </div>   
+            </div>
 
         </div>
     </div>

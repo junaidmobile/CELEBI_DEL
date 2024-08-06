@@ -1442,9 +1442,6 @@ function UpdateImportULDCloseOnconfirm() {
 
     var errmsg = "";
 
-
-
-
     //inputxml = '<Root><FlightSeqNo>' + flightSeqNo + '</FlightSeqNo><UlDSeqNo>' + ULDid + '</UlDSeqNo><AirportCity>' + AirportCity + '</AirportCity><ShowAll>' + showAll + '</ShowAll></Root>';
     inputxml = '<Root><FlightSeqNo>' + flightSeqNo + '</FlightSeqNo><ULDSeqNo>' + $('#ddlULDNo').val() + '</ULDSeqNo><UserId>' + window.localStorage.getItem("UserID") + '</UserId><AirportCity>' + AirportCity + '</AirportCity><IsConfirm>Y</IsConfirm></Root>';
 
