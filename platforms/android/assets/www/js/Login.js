@@ -1,9 +1,9 @@
 ﻿
 //UAT
-//var GHAserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
-//var GHAImportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
-//var GHAExportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTExpServices.asmx/';
-//var CMSserviceURL = 'https://uatwww.cargocel.in/CELEBIHHTWebservices/CMS_WS_PDA.asmx/';
+var GHAserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
+var GHAImportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTImpServices.asmx/';
+var GHAExportFlightserviceURL = 'https://uatwww.cargocel.in/galaxy/Services/HHTExpServices.asmx/';
+var CMSserviceURL = 'https://uatwww.cargocel.in/CELEBIHHTWebservices/CMS_WS_PDA.asmx/';
 
 
 //var CMSserviceURL = 'https://uatwww.cargocel.in/CELEBIwebservice_hht/CMS_WS_PDA.asmx/';
@@ -25,10 +25,10 @@
 
 //Live link
 
-var GHAserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtImpservices.asmx/';
-var GHAImportFlightserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtImpservices.asmx/';
-var GHAExportFlightserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtExpservices.asmx/';
-var CMSserviceURL = 'https://www.cargocel.in/GalaxyCMS/HHTWebService_Screening_Test/CMS_WS_PDA.asmx/';
+//var GHAserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtImpservices.asmx/';
+//var GHAImportFlightserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtImpservices.asmx/';
+//var GHAExportFlightserviceURL = 'https://www.cargocel.in/GalaxyGHA/services/hhtExpservices.asmx/';
+//var CMSserviceURL = 'https://www.cargocel.in/GalaxyCMS/HHTWebService_Screening_Test/CMS_WS_PDA.asmx/';
 
 
 document.addEventListener("deviceready", SetRememberLogin, false);

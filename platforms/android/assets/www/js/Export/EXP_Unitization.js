@@ -537,6 +537,7 @@ function CheckSpecialCharacter(uldno) {
 function GetOffPointForFlight() {
 
     $('#ddlOffPoint').empty();
+    $('#uldTypeULDL').empty();
     $('#ddlContour').empty();
     var newOption = $('<option></option>');
     newOption.val(0).text('Select');
@@ -638,6 +639,19 @@ function GetOffPointForFlight() {
                     var newOption = $('<option></option>');
                     newOption.val(ContourId).text(ContourNo);
                     newOption.appendTo('#ddlContour');
+                });
+
+                $(xmlDoc).find('Table6').each(function (index) {
+
+                    var KEYVALUE;
+                    var DESCRIPTION;
+                    
+                    KEYVALUE = $(this).find('KEYVALUE').text();
+                    DESCRIPTION = $(this).find('DESCRIPTION').text();
+
+                    var newOption = $('<option></option>');
+                    newOption.val(KEYVALUE).text(DESCRIPTION);
+                    newOption.appendTo('#uldTypeULDL');
                 });
 
             },
@@ -822,6 +836,11 @@ function AddULD() {
             $.alert(errmsg);
             return;
         }
+        if ($("#uldTypeULDL").val() == "-1") {
+            $.alert("Please select ULD Position.");
+            return;
+        }
+
     }
     if (document.getElementById('rdoBulk').checked) {
         if ($('#txtBulkType').val() == "" || $('#txtBulkNumber').val() == "") {
@@ -865,7 +884,7 @@ function AddULD() {
 
     if (document.getElementById('rdoULD').checked) {
 
-        inputXML = '<Root><FlightSeqNo>' + FlightSeqNo + '</FlightSeqNo><ULDType>' + $('#txtULDType').val().toUpperCase() + '</ULDType><ULDNo>' + $('#txtULDNumber').val() + '</ULDNo><ULDOwner>' + $('#txtOwner').val().toUpperCase() + '</ULDOwner><Offpoint>' + $('#ddlOffPoint').find('option:selected').text() + '</Offpoint><AirportCity>' + AirportCity + '</AirportCity><UserId>' + UserId + '</UserId></Root>';
+        inputXML = '<Root><FlightSeqNo>' + FlightSeqNo + '</FlightSeqNo><ULDType>' + $('#txtULDType').val().toUpperCase() + '</ULDType><ULDNo>' + $('#txtULDNumber').val() + '</ULDNo><ULDOwner>' + $('#txtOwner').val().toUpperCase() + '</ULDOwner><Offpoint>' + $('#ddlOffPoint').find('option:selected').text() + '</Offpoint><AirportCity>' + AirportCity + '</AirportCity><UserId>' + UserId + '</UserId><ULDSpecification>' + $("#uldTypeULDL").val() + '</ULDSpecification></Root>';
         servicename = 'UnitizationSaveULDDetails';
         $('#link').hide();
     }
@@ -918,7 +937,7 @@ function AddULD() {
                 if (document.getElementById('rdoStack').checked) {
                     callGetPallet();
                 }
-
+                $("#uldTypeULDL").val('-1');
                 $('#txtULDType').val('');
                 $('#txtULDNumber').val('');
                 $('#txtOwner').val('');
@@ -1704,7 +1723,7 @@ function AddTableLocation(AWB, Pkgs) {
 }
 
 function clearAllULDDetails() {
-
+    $("#uldTypeULDL").val('-1');
     $('#txtFlightPrefix').val('');
     $('#txtFlightNo').val('');
     $('#txtFlightDate').val('');

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\www"
+    "\\www",
+    "\\www\\js"
   ],
-  "SelectedNode": "\\config.xml",
+  "SelectedNode": "\\www\\IMP_CheckAWB.html",
   "PreviewInSolutionExplorer": false
 }

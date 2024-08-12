@@ -1,7 +1,8 @@
 ﻿//document.addEventListener("deviceready", GetCommodityList, false);
 
 var CMSserviceURL = window.localStorage.getItem("CMSserviceURL");
-
+var _AWBNO;
+var _ScanID;
 $(function () {
 
     if (window.localStorage.getItem("RoleExpExportsQuery") == '0') {
@@ -14,7 +15,7 @@ $(function () {
             $('#lblScanID').show();
             $('#lblAWBNo').hide();
             $('#lblAWBNo').focus();
-
+            _ScanID = 'S';
             clearBeforePopulate();
 
         }
@@ -28,7 +29,7 @@ $(function () {
             $('#lblScanID').hide();
             $('#lblAWBNo').show();
             $('#lblAWBNo').focus();
-
+            _AWBNO = 'A';
             clearBeforePopulate();
         }
 
@@ -67,7 +68,7 @@ function GetShipmentStatus() {
         $.ajax({
             type: 'POST',
             url: CMSserviceURL + "GetAWBHistory_PDA",
-            data: JSON.stringify({ 'pi_strAWBNo': AWBNo }),
+            data: JSON.stringify({ 'pi_strAWBNo': AWBNo, 'strType': strType }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function doStuff() {

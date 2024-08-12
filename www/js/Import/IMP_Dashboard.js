@@ -99,4 +99,11 @@ function RedirectPage(pagename) {
     else if (pagename == 'IMP_GatePassLineup.html')
         window.location.href = pagename;
 
+    if (pagename == 'IMP_Inventory_Management.html' && window.localStorage.getItem("RoleIMPDocUpload") == '0') {
+        $.alert('You are not authorized to view this page');
+        return;
+    }
+    else if (pagename == 'IMP_Inventory_Management.html')
+        window.location.href = pagename;
+
 }
