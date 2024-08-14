@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">    
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=0">
     <title>GalaxyMobileApplication</title>
     <style>
         #APPHeader, #APPFooter {
             background-color: #065da1;
         }
-    </style>    
+    </style>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
 
@@ -27,11 +27,11 @@
     <link href="css/General.css" rel="stylesheet" />
     <link href="css/Loader.css" rel="stylesheet" />
     <link href="css/dialog.css" rel="stylesheet" />
-    <link href="css/alert.mob.css" rel="stylesheet" />  
-    <script src="js/GalaxyHome.js"></script>       
+    <link href="css/alert.mob.css" rel="stylesheet" />
+    <script src="js/GalaxyHome.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" id="navbar">        
+    <nav class="navbar navbar-inverse" id="navbar">
         <div class="container-fluid">
             <div class="navbar-header" style="background-color:#065da1;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" id="btnnavbar" data-target="#myNavbar">
@@ -39,19 +39,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" id="navhdrName" style="text-align:right;"></a>                
+                <a class="navbar-brand" href="#" id="navhdrName" style="text-align:right;"></a>
                 <img class="navbarImage" src="images/Logo.png" onclick="ShowHomePage();">
                 <a href="#" id="navhdr" class="loggedinUser"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
 
             </div>
-        </div> 
+        </div>
     </nav>
     <div class="container-fluid">
-        <div id="divMain" >
-            <div id="divMode" >
-                <div >
+        <div id="divMain">
+            <div id="divMode">
+                <div>
                     <div class="row" style="border-radius: 25px">
                         <div class="col-xs-6 col-sm-6 col-md-6" style="padding-right: 5px;">
                             <div>
@@ -63,9 +63,29 @@
                                 <img src="images/Export_grey.png" style="width:100%;" onclick="DisplayScreen('Export');" />
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row" style="border-radius: 25px">
+                        <!--<div class="col-xs-6 col-sm-6 col-md-6" style="padding-right: 5px;">
+                            <div>
+                                <img src="images/sipment.svg" style="width:100%;" onclick="DisplayScreen('Import');" />
+                            </div>
+                            <span>Inventory Reconciliation</span>
+                        </div>-->
+
+                        <!--<div class="col-xs-6 col-sm-6 col-md-6" style="margin-left: 17px;text-align:center; margin-top: 10px; padding-left: 15px; padding-right: 0px; border: solid thin #000; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); border-radius: 10px; " ">
+                            <div>
+                                <img src="images/unitization.svg" style="width: 40%;" onclick="DisplayScreen('VT');" />
+                                
+                            </div>
+                            <span style="font-size:larger;">Inventory Management </span>
+                            
+                        </div>-->
+
+
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
     <div>

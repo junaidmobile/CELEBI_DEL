@@ -165,6 +165,16 @@ function LoadNavBar() {
     else if (window.location.pathname.split("/").pop() == "IMP_GatePassLineup.html") {
         $('#navhdrName').html("Gate Pass Line-Up");
     }
+    else if (window.location.pathname.split("/").pop() == "IMP_Inventory_Management.html") {
+        $('#navhdrName').html("Inventory Management");
+    }
+
+    else if (window.location.pathname.split("/").pop() == "IMP_Inventory_Found_Damage.html") {
+        $('#navhdrName').html("Inventory Management");
+    }
+    else if (window.location.pathname.split("/").pop() == "IMP_Inventory_Management_Save.html") {
+        $('#navhdrName').html("Inventory Management");
+    }
 }
 function NumberOnly(e) {
     e.target.value = e.target.value.replace(/[^0-9]/g, '');
